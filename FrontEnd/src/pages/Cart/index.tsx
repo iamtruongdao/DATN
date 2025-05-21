@@ -10,7 +10,7 @@ import { formatMoney } from '@/utils'
 import { debounce } from 'lodash'
 import { Loader2, Trash } from 'lucide-react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 export default function Cart() {
@@ -23,7 +23,7 @@ export default function Cart() {
   const [isCalculating, setIsCalculating] = useState(false)
   const [loadingItemIds, setLoadingItemIds] = useState<string[]>([])
   const dispatch = useAppDispatch()
-
+  const navigate = useNavigate()
   // State để lưu thông tin sản phẩm cần xóa
   const [itemToDelete, setItemToDelete] = useState<{
     id: string
@@ -35,7 +35,7 @@ export default function Cart() {
     setItemToDelete({ id, name: productName })
   }
   const handlePayment = () => {
-    window.location.href = '/checkout'
+    navigate('/checkout', { replace: true })
   }
   // Function để xử lý thanh toán
   // Function để hủy xóa

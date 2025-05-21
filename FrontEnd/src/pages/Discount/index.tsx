@@ -1,4 +1,5 @@
 import { getDiscountFilter } from '@/apis/discount.api'
+import Pagination from '@/components/Pagination'
 import { ApplyTo, Discount, DiscountType } from '@/types'
 import { formatDate } from '@/utils'
 import { Calendar, Gift, Heart, ShoppingCart, Tag, Users } from 'lucide-react'
@@ -34,7 +35,9 @@ const DiscountPage: React.FC = () => {
       return newSaved
     })
   }
-
+  const handlePageChange = (e: { selected: number }) => {
+    setCurrentPage(e.selected + 1)
+  }
   const formatCurrency = (amount: number): string => {
     return new Intl.NumberFormat('vi-VN', {
       style: 'currency',
@@ -182,7 +185,7 @@ const DiscountPage: React.FC = () => {
           </div>
         )}
       </div>
-
+      <Pagination currentPage={currentPage} pageCount={totalPages} onPageChange={handlePageChange} />
       {/* Footer */}
       <div className='bg-white border-t mt-8'>
         <div className='max-w-4xl mx-auto px-4 py-6 text-center'>

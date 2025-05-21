@@ -31,7 +31,12 @@ const AuthorDetail = () => {
     productDescription: '',
     productName: '',
     productPrice: 0,
-    productQuantity: 0
+    productQuantity: 0,
+    cat: [],
+    id: '',
+    pageNumber: 0,
+    publicDate: new Date(),
+    slug: ''
   })
   const [relatedBooks, setRelatedBooks] = useState<Book[]>([])
 
@@ -50,7 +55,7 @@ const AuthorDetail = () => {
     const res = await getBookByAuthorApi(author)
     if (res.code === 0) {
       setBook(res.data)
-      const response = await getBookFilterApi({ pageSize: '11', pageNumber: '1', cate: res.data.category[0].id })
+      const response = await getBookFilterApi({ pageSize: '11', pageNumber: '1', cate: res.data.category[0].slug })
       if (response.code === 0) {
         const filteredBooks = response.data.items.filter((item: Book) => item.slug !== res.data.slug)
         setRelatedBooks(filteredBooks)
